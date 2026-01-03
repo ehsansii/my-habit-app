@@ -147,7 +147,7 @@ const App = () => {
   }
 
   return (
-    <div className={`min-h-screen pb-32 font-['Vazirmatn'] overflow-x-hidden transition-colors duration-300 bg-slate-50 dark:bg-[#0f172a] text-slate-900 dark:text-slate-100 selection:bg-indigo-500 selection:text-white`}>
+    <div ={`min-h-screen pb-32 font-['Vazirmatn'] overflow-x-hidden transition-colors duration-300 bg-slate-50 dark:bg-[#0f172a] text-slate-900 dark:text-slate-100 selection:bg-indigo-500 selection:text-white`}>
       
       {/* Drawer Overlay */}
       {isMenuOpen && (
@@ -279,7 +279,7 @@ const SplashScreen = () => (
             <<img src="/logo.png" />
         </div>
      </div>
-     <h1 className="text-2xl font-bold text-white mt-8 tracking-wider animate-pulse">چله یار</h1>
+     <h1 className="text-2xl font-bold text-white mt-8 tracking-wider animate-pulse">عادت یار</h1>
   </div>
 );
 
@@ -360,7 +360,7 @@ const AboutPage = () => (
        <div className="w-16 h-16 bg-slate-100 dark:bg-slate-700 rounded-2xl flex items-center justify-center mx-auto mb-4">
          <Info size={32} className="text-indigo-500 dark:text-indigo-400" />
        </div>
-       <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-2">چله یار</h2>
+       <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-2">عادت یار</h2>
        <p className="text-slate-600 dark:text-slate-400 text-sm leading-7">
          ما سعی داریم ابزاری ساده برای فارسی‌زبانان بسازیم تا در مسیر رشد شخصی همراهشان باشیم.
          <br/>
