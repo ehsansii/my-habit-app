@@ -17,6 +17,7 @@
     "@capacitor/cli": "^6.2.0"
   },
   "devDependencies": {
+    "@capacitor/assets": "^3.0.0",
     "@tailwindcss/postcss": "^4.0.0",
     "tailwindcss": "^4.0.0",
     "postcss": "^8.4.47",
