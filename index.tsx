@@ -146,9 +146,11 @@ const App = () => {
     return <SplashScreen />;
   }
 
-  return (
-    <div ={`min-h-screen pb-32 font-['Vazirmatn'] overflow-x-hidden transition-colors duration-300 bg-slate-50 dark:bg-[#0f172a] text-slate-900 dark:text-slate-100 selection:bg-indigo-500 selection:text-white`}>
-      
+ return (
+    <div className={`min-h-screen pb-32 font-['Vazirmatn'] overflow-x-hidden transition-colors duration-300 bg-slate-50 dark:bg-[#0f172a] text-slate-900 dark:text-slate-100 selection:bg-indigo-500 selection:text-white`}>
+
+
+  
       {/* Drawer Overlay */}
       {isMenuOpen && (
         <div 
