@@ -18,9 +18,26 @@ jobs:
       - name: Build Web Project
         run: npm run build
 
+      - name: Prepare Assets (Icon)
+        # این مرحله چک می‌کند اگر آیکونی آپلود کردید، پوشه resources را بسازد
+        run: |
+          mkdir -p resources
+          if [ -f "icon.png" ]; then
+            cp icon.png resources/icon.png
+            cp icon.png resources/splash.png
+          fi
+          # اگر آیکون نداشتید، برای جلوگیری از خطا یک آیکون پیش‌فرض دانلود می‌کند
+          if [ ! -f "resources/icon.png" ]; then
+             curl https://raw.githubusercontent.com/ionic-team/capacitor-assets/main/assets/icon-only.png -o resources/icon.png
+             curl https://raw.githubusercontent.com/ionic-team/capacitor-assets/main/assets/icon-only.png -o resources/splash.png
+          fi
+
+      - name: Generate Icons and Splash
+        # این دستور آیکون‌ها را برای اندروید می‌سازد
+        run: npx capacitor-assets generate --android
+
       - name: Setup Capacitor Android
         run: |
-          # اگر پوشه اندروید وجود ندارد، آن را بساز
           if [ ! -d "android" ]; then
             npx cap add android
           fi
