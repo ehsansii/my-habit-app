@@ -2,7 +2,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'com.yourname.habitapp',
-  appName: 'HabitBuilder',
+  appName: 'Adat Yar',
   webDir: 'dist'
 };
 
