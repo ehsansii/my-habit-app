@@ -278,7 +278,7 @@ const SplashScreen = () => (
         <div className="absolute inset-0 bg-indigo-500 blur-3xl opacity-20 rounded-full animate-pulse"></div>
         {/* لوگوی اسپلش اسکرین: برای تغییر، آیکون Zap را با تگ img جایگزین کنید */}
         <div className="w-24 h-24 bg-indigo-600 rounded-3xl flex items-center justify-center shadow-2xl shadow-indigo-500/30 relative z-10 animate-bounce-slow">
-            <<img src="/logo.png" />
+            <img src="/logo.png" className="w-16 h-16 object-contain" alt="logo" />
         </div>
      </div>
      <h1 className="text-2xl font-bold text-white mt-8 tracking-wider animate-pulse">عادت یار</h1>
