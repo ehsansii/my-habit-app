@@ -276,14 +276,17 @@ const SplashScreen = () => (
   <div className="fixed inset-0 bg-[#0f172a] z-[100] flex flex-col items-center justify-center animate-out fade-out duration-500 delay-[2500ms]">
      <div className="relative">
         <div className="absolute inset-0 bg-indigo-500 blur-3xl opacity-20 rounded-full animate-pulse"></div>
-        {/* لوگوی اسپلش اسکرین: برای تغییر، آیکون Zap را با تگ img جایگزین کنید */}
         <div className="w-24 h-24 bg-indigo-600 rounded-3xl flex items-center justify-center shadow-2xl shadow-indigo-500/30 relative z-10 animate-bounce-slow">
-            <img src="/logo.png" className="w-16 h-16 object-contain" alt="logo" />
+            {/* اگر فایل logo.png در روت پروژه است این خط کار میکند */}
+            <img src="/logo.png" className="w-16 h-16 object-contain" alt="Logo" onError={(e) => e.currentTarget.style.display = 'none'} />
+            {/* اگر عکس لود نشود، آیکون زیر نمایش داده می‌شود */}
+            <Zap size={48} className="text-white fill-current absolute z-0" />
         </div>
      </div>
-     <h1 className="text-2xl font-bold text-white mt-8 tracking-wider animate-pulse">عادت یار</h1>
+     <h1 className="text-2xl font-bold text-white mt-8 tracking-wider animate-pulse">چله یار</h1>
   </div>
 );
+
 
 const MenuItem = ({ icon, label, active, onClick }: any) => (
   <button 
@@ -401,7 +404,7 @@ const FeedbackPage = () => {
 
 // --- اصلاح نمایش شماره کارت ---
 const DonatePage = () => {
-  const cardNumber = "6037997454433294"; // شماره کارت بدون فاصله
+  const cardNumber = "6037997454433294";
 
   const copyCardNumber = () => {
     navigator.clipboard.writeText(cardNumber);
@@ -419,9 +422,9 @@ const DonatePage = () => {
 
           <div className="bg-black/30 p-4 rounded-xl border border-white/10 mb-2 backdrop-blur-sm">
              <div className="text-slate-400 text-xs mb-1">شماره کارت</div>
-             {/* نمایش شماره کارت بدون فاصله اضافی و در جهت درست */}
-             <div className="text-xl font-mono text-white tracking-widest font-bold dir-ltr mb-1 select-all">
-                {cardNumber.match(/.{1,4}/g)?.join(' ')}
+             {/* نمایش شماره کارت به صورت چسبیده و انگلیسی */}
+             <div className="text-xl font-mono text-white tracking-widest font-bold dir-ltr mb-1 select-all font-sans">
+                {cardNumber}
              </div>
              <div className="text-slate-400 text-sm">به نام احسان ساروی</div>
           </div>
