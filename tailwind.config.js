@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  darkMode: 'class', // این خط باعث می‌شود دکمه تغییر تم کار کند
+  darkMode: 'class', // <--- این خط حیاتی است! اگر نباشد دکمه کار نمی‌کند
   content: [
     "./index.html",
     "./index.tsx",
@@ -8,7 +8,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Vazirmatn', 'sans-serif'], // فونت وزیر را اینجا هم اضافه کردیم
+        sans: ['Vazirmatn', 'sans-serif'],
       },
     },
   },
