@@ -18,7 +18,6 @@ jobs:
       - name: Build Web Project
         run: npm run build
 
-      # اول اندروید را اضافه می‌کنیم
       - name: Setup Capacitor Android
         run: |
           if [ ! -d "android" ]; then
@@ -26,41 +25,36 @@ jobs:
           fi
           npx cap sync android
 
-      # حالا آیکون‌ها را بررسی و کپی می‌کنیم
-      - name: Verify Assets
+      - name: Prepare Resources
+        # این بخش حیاتی است: فایل‌ها را از روت به پوشه resources می‌برد
         run: |
-          # اصلاح نام پوشه اگر اشتباه باشد
-          if [ -d ".resources" ]; then mv .resources resources; fi
           mkdir -p resources
           
-          # بررسی آیکون
-          if [ ! -f "resources/icon.png" ]; then
-             echo "Icon missing! Downloading default..."
-             curl https://raw.githubusercontent.com/ionic-team/capacitor-assets/main/assets/icon-only.png -o resources/icon.png
-          else
-             echo "✅ Custom Icon found."
-          fi
-
-          # بررسی اسپلش
-          if [ ! -f "resources/splash.png" ]; then
-             echo "Splash missing! Using icon as splash..."
+          # اگر آیکون در صفحه اصلی است، کپی کن
+          if [ -f "icon.png" ]; then cp icon.png resources/icon.png; fi
+          # اگر اسپلش در صفحه اصلی است، کپی کن
+          if [ -f "splash.png" ]; then cp splash.png resources/splash.png; fi
+          
+          # اگر اسپلش نبود، آیکون را جایش بگذار (چون اسپلش شما سایزش بد بود، شاید حذفش کرده باشید)
+          if [ ! -f "resources/splash.png" ] && [ -f "resources/icon.png" ]; then
              cp resources/icon.png resources/splash.png
-          else
-             echo "✅ Custom Splash found."
           fi
 
-      # حالا که اندروید هست، آیکون‌ها را می‌سازیم
+          # دانلود پیش‌فرض اگر هیچی نبود
+          if [ ! -f "resources/icon.png" ]; then
+             curl https://raw.githubusercontent.com/ionic-team/capacitor-assets/main/assets/icon-only.png -o resources/icon.png
+             cp resources/icon.png resources/splash.png
+          fi
+
       - name: Generate Icons for Android
         run: npx capacitor-assets generate --android
 
-      # بیلد نهایی
       - name: Build Unsigned Release APK
         run: |
           cd android
           chmod +x gradlew
           ./gradlew assembleRelease
 
-      # امضا کردن
       - name: Sign APK
         id: sign_app
         uses: r0adkll/sign-android-release@v1
@@ -76,5 +70,5 @@ jobs:
       - name: Upload Signed APK
         uses: actions/upload-artifact@v4
         with:
-          name: Habit-App-Release-Signed
+          name: Habit-App-v${{ github.run_number }}
           path: ${{ steps.sign_app.outputs.signedReleaseFile }}
