@@ -1,7 +1,7 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.ehsan.habitapp', // مطمئن شوید این همان نام پکیج شماست
+  appId: 'com.VinaSystem.habitapp', // مطمئن شوید این همان نام پکیج شماست
   appName: 'Adat Yar',
   webDir: 'dist',
   plugins: {
