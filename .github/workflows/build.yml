@@ -18,18 +18,7 @@ jobs:
       - name: Build Web Project
         run: npm run build
 
-      - name: Verify Assets (Icons)
-        run: |
-          if [ ! -f "resources/icon.png" ]; then
-             echo "Icon not found! Downloading default..."
-             mkdir -p resources
-             curl https://raw.githubusercontent.com/ionic-team/capacitor-assets/main/assets/icon-only.png -o resources/icon.png
-             curl https://raw.githubusercontent.com/ionic-team/capacitor-assets/main/assets/icon-only.png -o resources/splash.png
-          fi
-
-      - name: Generate Icons for Android
-        run: npx capacitor-assets generate --android
-
+      # اول اندروید را اضافه می‌کنیم
       - name: Setup Capacitor Android
         run: |
           if [ ! -d "android" ]; then
@@ -37,12 +26,41 @@ jobs:
           fi
           npx cap sync android
 
+      # حالا آیکون‌ها را بررسی و کپی می‌کنیم
+      - name: Verify Assets
+        run: |
+          # اصلاح نام پوشه اگر اشتباه باشد
+          if [ -d ".resources" ]; then mv .resources resources; fi
+          mkdir -p resources
+          
+          # بررسی آیکون
+          if [ ! -f "resources/icon.png" ]; then
+             echo "Icon missing! Downloading default..."
+             curl https://raw.githubusercontent.com/ionic-team/capacitor-assets/main/assets/icon-only.png -o resources/icon.png
+          else
+             echo "✅ Custom Icon found."
+          fi
+
+          # بررسی اسپلش
+          if [ ! -f "resources/splash.png" ]; then
+             echo "Splash missing! Using icon as splash..."
+             cp resources/icon.png resources/splash.png
+          else
+             echo "✅ Custom Splash found."
+          fi
+
+      # حالا که اندروید هست، آیکون‌ها را می‌سازیم
+      - name: Generate Icons for Android
+        run: npx capacitor-assets generate --android
+
+      # بیلد نهایی
       - name: Build Unsigned Release APK
         run: |
           cd android
           chmod +x gradlew
           ./gradlew assembleRelease
 
+      # امضا کردن
       - name: Sign APK
         id: sign_app
         uses: r0adkll/sign-android-release@v1
